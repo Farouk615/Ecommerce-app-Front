@@ -4,7 +4,7 @@ import { map, Observable } from 'rxjs';
 import { Product } from '../common/product';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root' // can be injected everywhere
 })
 export class ProductService {
 
