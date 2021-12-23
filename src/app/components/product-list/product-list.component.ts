@@ -11,6 +11,7 @@ import { ProductService } from 'src/app/services/product.service';
 export class ProductListComponent implements OnInit {
   products: Product[] = [];
   currentCategoryId!: number;
+  categoryName!:string;
 
   constructor(private productService:ProductService,
               private route: ActivatedRoute){} // Dependency injection of service 
@@ -29,6 +30,7 @@ export class ProductListComponent implements OnInit {
       // get the id from url + convert it to number 
       this.route.params.subscribe(data =>{
         this.currentCategoryId=+data['id'];
+        this.categoryName=data['name'];
       });
      // console.log(this.currentCategoryId);
       //this.currentCategoryId = +this.route.snapshot.paramMap.get('id');
@@ -36,6 +38,7 @@ export class ProductListComponent implements OnInit {
     else{
       // there is no id in the url we set the default at 1
 this.currentCategoryId=1;
+this.categoryName="Books";
     }
     this.productService.getProductsList(this.currentCategoryId).subscribe(
       data => {
