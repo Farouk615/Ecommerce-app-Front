@@ -8,6 +8,10 @@ import { ProductCategory } from '../common/product-category';
   providedIn: 'root' // can be injected everywhere
 })
 export class ProductService {
+  searchProducts(searchText: string) {
+    const searchUrl = `${this.baseUrl}/search/findByNameContaining?name=${searchText}`
+return this.httpClient.get<GetResponseProduct>(searchUrl).pipe(map(response=> response._embedded.products))
+  }
  
   private baseUrl = 'http://localhost:8070/api/products';
   constructor(private httpClient:HttpClient) { }
