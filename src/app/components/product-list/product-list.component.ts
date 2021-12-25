@@ -29,6 +29,7 @@ export class ProductListComponent implements OnInit {
     const search = this.route.snapshot.paramMap.has("keyword");
     if(search){
       this.handleSearchProducts();
+      
     }
     else{
       this.handleListProducts();
