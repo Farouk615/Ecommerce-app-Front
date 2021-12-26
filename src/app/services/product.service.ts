@@ -8,6 +8,7 @@ import { ProductCategory } from '../common/product-category';
   providedIn: 'root' // can be injected everywhere
 })
 export class ProductService {
+ 
   searchProducts(searchText: string) {
     const searchUrl = `${this.baseUrl}/search/findByNameContaining?name=${searchText}`
 return this.httpClient.get<GetResponseProduct>(searchUrl).pipe(map(response=> response._embedded.products))
@@ -25,6 +26,11 @@ return this.httpClient.get<GetResponseProduct>(searchUrl).pipe(map(response=> re
   private baseCategoryUrl='http://localhost:8070/api/product_category'
   getProductsCategories():Observable<ProductCategory[]> {
     return this.httpClient.get<GetResponseProductCategory>(this.baseCategoryUrl).pipe(map(respone=> respone._embedded.productCategory));
+  }
+  getProductDet(id: number):Observable<Product> {
+    const urlDetail = `${this.baseUrl}/${id}`;
+    return this.httpClient.get<Product>(urlDetail);
+    
   }
 }
 
