@@ -16,6 +16,14 @@ return this.httpClient.get<GetResponseProduct>(searchUrl).pipe(map(response=> re
  
   private baseUrl = 'http://localhost:8070/api/products';
   constructor(private httpClient:HttpClient) { }
+
+  getProductsListPagination(theCategoryId:number , thisPage:number , thisPageSize:number): Observable<GetResponseProduct>{
+    console.log(theCategoryId)
+    const searchUrl=`${this.baseUrl}/search/findByCategoryId?id=${theCategoryId}&page=${thisPage}&size=${thisPageSize}`;
+    console.log(searchUrl);
+    return this.httpClient.get<GetResponseProduct>(searchUrl);
+  }
+
   getProductsList(theCategoryId:number): Observable<Product[]>{
     console.log(theCategoryId)
     const searchUrl=`${this.baseUrl}/search/findByCategoryId?id=${theCategoryId}`;
@@ -38,6 +46,12 @@ return this.httpClient.get<GetResponseProduct>(searchUrl).pipe(map(response=> re
 interface GetResponseProduct{
   _embedded:{
     products:Product[];
+  },
+  page:{
+    size:number,
+    totalElements:number,
+    totalPages:number,
+    number:number,
   }
 }
 interface GetResponseProductCategory{

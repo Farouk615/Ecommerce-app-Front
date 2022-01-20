@@ -14,6 +14,27 @@
                 </div>          
              </div>
              <div *ngIf="products?.length==0" class="alert alert-warning col-md-12" role="alert">No Products Found , try again </div>
+            
+             <!-- Pagination-->
+             <div class="footer-pagination">
+                 <div class="row">
+                     <div class="col-md-6"></div>
+                     <div class="col-md-6">
+                         <div class="row">
+                             <div class="col-md-9" style="padding-left: 30%;">
+                                <ngb-pagination [(page)]="page"
+                                                [pageSize]="size"
+                                                [collectionSize]="totalElements"
+                                                (pageChange)="listProducts()"
+                                >
+                                    
+                                </ngb-pagination>
+                             </div>
+                         </div>
+                     </div>
+                 </div>
+             </div>
+             <!-- Pagination-->
         </div>
     </div>
 </div>

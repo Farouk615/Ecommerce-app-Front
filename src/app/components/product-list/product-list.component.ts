@@ -11,8 +11,14 @@ import { ProductService } from 'src/app/services/product.service';
 export class ProductListComponent implements OnInit {
   products: Product[] = [];
   currentCategoryId!: number;
+  previousCategoryId!:number;
   categoryName!:string;
   searchText!:string;
+
+  // new proprieties for pagination 
+  page:number = 1;
+  size:number = 15;
+  totalElements!:number;
 
 
   constructor(private productService:ProductService,
@@ -35,6 +41,8 @@ export class ProductListComponent implements OnInit {
       this.handleListProducts();
      }
   }
+
+ 
   handleSearchProducts() {
     this.route.params.subscribe(data =>{
       this.searchText=data['keyword'];
@@ -54,6 +62,8 @@ export class ProductListComponent implements OnInit {
        this.route.params.subscribe(data =>{
          this.currentCategoryId=+data['id'];
          this.categoryName=data['name'];
+         /*this.page=data['page'];
+         this.size=data['size'];*/
        });
       // console.log(this.currentCategoryId);
        //this.currentCategoryId = +this.route.snapshot.paramMap.get('id');
@@ -62,11 +72,20 @@ export class ProductListComponent implements OnInit {
        // there is no id in the url we set the default at 1
  this.currentCategoryId=1;
  this.categoryName="Books";
+ 
      }
-     this.productService.getProductsList(this.currentCategoryId).subscribe(
+     if(this.currentCategoryId!=this.previousCategoryId){
+       this.page=1;
+       this.previousCategoryId=this.currentCategoryId;
+       console.log(`category id :${this.categoryName} , the page is ${this.page}`);
+     }
+     this.productService.getProductsListPagination(this.currentCategoryId,this.page-1,this.size).subscribe(
        data => {
-         console.log("hello drom "+JSON.stringify(data));
-         this.products=data;
+         
+         this.products=data._embedded.products;
+         this.page=data.page.number+1;
+         this.totalElements=data.page.totalElements;
+         this.size=data.page.size;
        }
      )
   }
