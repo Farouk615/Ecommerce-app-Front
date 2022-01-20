@@ -9,9 +9,9 @@ import { ProductCategory } from '../common/product-category';
 })
 export class ProductService {
  
-  searchProducts(searchText: string) {
-    const searchUrl = `${this.baseUrl}/search/findByNameContaining?name=${searchText}`
-return this.httpClient.get<GetResponseProduct>(searchUrl).pipe(map(response=> response._embedded.products))
+  searchProducts(searchText: string, page:number , size:number) {
+    const searchUrl = `${this.baseUrl}/search/findByNameContaining?name=${searchText}&page=${page}&size=${size}`
+return this.httpClient.get<GetResponseProduct>(searchUrl);
   }
  
   private baseUrl = 'http://localhost:8070/api/products';
