@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { CartItem } from 'src/app/common/cart-item';
 import { Product } from 'src/app/common/product';
+import { CartService } from 'src/app/services/cart.service';
 import { ProductService } from 'src/app/services/product.service';
 
 @Component({
@@ -25,6 +27,7 @@ export class ProductListComponent implements OnInit {
 
 
   constructor(private productService:ProductService,
+              private cartService:CartService,
               private route: ActivatedRoute){} // Dependency injection of service 
               
   ngOnInit(): void { // when the component load.. this method is being called
@@ -104,6 +107,11 @@ export class ProductListComponent implements OnInit {
     this.size=pageSize;
     this.page=1;
     this.listProducts();
+  }
+  addToChart(theProduct:Product){
+    console.log(`the product is : ${theProduct.name} with price : ${theProduct.unitPrice}`);
+    const addingProduct = new CartItem(theProduct);
+    this.cartService.addToCart(addingProduct);
   }
 
 }
