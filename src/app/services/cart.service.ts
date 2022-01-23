@@ -9,6 +9,7 @@ export class CartService {
   cartItems: CartItem[]=[];
   totalPrice: Subject<number> = new Subject<number>();
   totalQuantity: Subject<number> = new Subject<number>();
+  
 
   constructor() { }
 
@@ -31,6 +32,21 @@ export class CartService {
     // compute total price and total quantity
     this.computeCartTotals();
   }
+  decrementFromCart(theCartItem:CartItem){
+    let existingCartItem:CartItem |undefined;
+    existingCartItem=this.cartItems.find(tempCartItem => tempCartItem.id===theCartItem.id);
+    if(existingCartItem!=undefined && existingCartItem.quantity>0 ){
+      existingCartItem.quantity--;
+    }  
+    this.computeCartTotals();
+  }
+  removeFromCart(theCartItem:CartItem){
+    var index = this.cartItems.indexOf(theCartItem)
+    if (index > -1) {
+      this.cartItems.splice(index, 1);
+   }
+    this.computeCartTotals();
+  }
   computeCartTotals() {
     let totalPriceValue:number=0;
     let totalQuantityValue:number=0;
@@ -44,3 +60,4 @@ export class CartService {
     console.log(` total price : ${totalPriceValue} and total quantity : ${totalQuantityValue}`)
   }
 }
+

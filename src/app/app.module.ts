@@ -11,6 +11,7 @@ import { SearchComponent } from './components/search/search.component';
 import { ProductDetailsComponent } from './components/product-details/product-details.component';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import { CartStatusComponent } from './components/cart-status/cart-status.component';
+import { CartDetailsComponent } from './components/cart-details/cart-details-component.component';
 
 // define your routes 
 const routes:Routes = [
@@ -19,6 +20,7 @@ const routes:Routes = [
   {path: 'category/:id/:name', component : ProductListComponent},
   {path: 'category', component : ProductListComponent},
   {path: 'products', component : ProductListComponent},
+  {path: 'cart-details', component:CartDetailsComponent},
   {path: '', redirectTo : "/products" , pathMatch : "full"},
   {path: '**', redirectTo : "/products" , pathMatch : "full"}  // wildCard : ay haja okhra bekhlef yemchi lel products
 ]
@@ -29,6 +31,7 @@ const routes:Routes = [
     ProductCategoryMenuComponent,
     SearchComponent,
     CartStatusComponent,
+    CartDetailsComponent,
     
   ],
   imports: [

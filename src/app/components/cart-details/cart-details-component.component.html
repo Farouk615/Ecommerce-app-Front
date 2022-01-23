@@ -1,0 +1,47 @@
+<div class="main-content">
+    <table class="table table-hover" *ngIf="orderedProducts.length!=0">
+        <thead>
+          <tr>
+            <th scope="col">Product image</th>
+            <th scope="col">Product details</th>
+            <th scope="col"></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let tempProduct of orderedProducts">
+            <td scope="row"><img [src]="tempProduct.imageUrl" width="30%"></td>
+            <td>{{tempProduct.unitPrice |currency:'USD'}}</td>
+            <td> <p> Quantity : </p> <div class="row no-glutters">
+                <div class="col">
+                    <button class="btn btn-primary btn-sm" (click)="addQuantity(tempProduct)">
+                        <i class="fas fa-plus"></i>
+                    </button>
+                </div>
+                <div class="col">
+                    <button class="btn btn-primary btn-sm" (click)="decrementQuantity(tempProduct)">
+                        <i class="fas fa-minus"></i>
+                    </button>
+                </div>
+                <div class="col">
+                    <button class="btn btn-primary btn-sm" (click)="removeItem(tempProduct)">
+                        Remove
+                    </button>
+                </div>
+                <div class="col-8"></div>
+                <div class="col ml-4 mr-2">
+                    {{tempProduct.quantity}}
+                </div>
+            </div> <p>Subtotal: {{tempProduct.unitPrice*tempProduct.quantity | currency:'USD'}}</p> </td>
+          </tr>
+        </tbody>
+        <tfoot>
+            <td colspan="2"></td>
+            <td><p><b>Total Items : {{totalItems}}</b> </p> 
+                <p> <b>Shipping : {{shipping}}</b></p>
+            <p> <b>Total Price : {{totalPrice | currency:'USD' }} </b> </p>
+            </td>
+        </tfoot>
+      </table>
+      <div *ngIf="orderedProducts?.length==0" class="alert alert-warning col-md-12" role="alert">No Products Found , fill your cart first </div>
+    
+</div>
