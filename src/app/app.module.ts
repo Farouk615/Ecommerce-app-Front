@@ -12,9 +12,13 @@ import { ProductDetailsComponent } from './components/product-details/product-de
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import { CartStatusComponent } from './components/cart-status/cart-status.component';
 import { CartDetailsComponent } from './components/cart-details/cart-details-component.component';
+import { CheckoutComponent } from './components/checkout/checkout.component';
+import { ReactiveFormsModule } from '@angular/forms';
+
 
 // define your routes 
 const routes:Routes = [
+  {path:'checkout', component:CheckoutComponent},
   {path:'products/:id', component:ProductDetailsComponent},
   {path: 'search/:keyword', component:ProductListComponent},
   {path: 'category/:id/:name', component : ProductListComponent},
@@ -32,6 +36,7 @@ const routes:Routes = [
     SearchComponent,
     CartStatusComponent,
     CartDetailsComponent,
+    CheckoutComponent,
     
   ],
   imports: [
@@ -39,6 +44,7 @@ const routes:Routes = [
     BrowserModule,
     HttpClientModule,
     NgbModule,
+    ReactiveFormsModule,
   ],
   providers: [ProductService], // to be injected 
   bootstrap: [AppComponent],

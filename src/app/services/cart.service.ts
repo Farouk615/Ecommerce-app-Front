@@ -35,9 +35,11 @@ export class CartService {
   decrementFromCart(theCartItem:CartItem){
     let existingCartItem:CartItem |undefined;
     existingCartItem=this.cartItems.find(tempCartItem => tempCartItem.id===theCartItem.id);
-    if(existingCartItem!=undefined && existingCartItem.quantity>0 ){
+    if(existingCartItem!=undefined && existingCartItem.quantity>1 ){
       existingCartItem.quantity--;
     }  
+    else
+    this.removeFromCart(theCartItem);
     this.computeCartTotals();
   }
   removeFromCart(theCartItem:CartItem){
